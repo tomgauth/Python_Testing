@@ -21,13 +21,17 @@ competitions = loadCompetitions()
 clubs = loadClubs()
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def index(error=None):
+    return render_template('index.html', error_message=error)
 
 @app.route('/showSummary',methods=['POST'])
 def showSummary():
-    club = [club for club in clubs if club['email'] == request.form['email']][0]
-    return render_template('welcome.html',club=club,competitions=competitions)
+    try:
+        club = [club for club in clubs if club['email'] == request.form['email']][0]    
+        return render_template('welcome.html',club=club,competitions=competitions)
+    except IndexError:
+        return index("Sorry, that email is not valid")
+    
 
 
 @app.route('/book/<competition>/<club>')

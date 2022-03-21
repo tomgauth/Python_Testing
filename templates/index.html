@@ -11,6 +11,9 @@
         <label for="email">Email:</label>
         <input type="email" name="email" id=""/>
         <button type="submit">Enter</button>
-    </form>
+    </form>    
+    {% if error_message %}
+        <p>{{error_message}}</p>
+    {% endif%}
 </body>
 </html>
