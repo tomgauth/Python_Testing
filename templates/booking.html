@@ -10,7 +10,7 @@
     <form action="/purchasePlaces" method="post">
         <input type="hidden" name="club" value="{{club['name']}}">
         <input type="hidden" name="competition" value="{{competition['name']}}">
-        <label for="places">How many places?</label><input required="required" pattern="[0-9]" min="0" value="0" type="number" name="places" id=""/>
+        <label for="places">How many places?</label><input required="required" pattern="[0-9]" min="0" max="120" value="0" type="number" name="places" id=""/>
         <button type="submit">Book</button>
     </form>
     {% with messages = get_flashed_messages()%}

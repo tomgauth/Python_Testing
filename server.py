@@ -58,8 +58,9 @@ def purchasePlaces():
         ordered_spots = 0
         
     available_spots = int(competition["numberOfPlaces"])
-    
-    if club_points < ordered_spots:
+    if ordered_spots >= 12:
+        flash(f"You can get max 12 points per booking")
+    elif club_points < ordered_spots:
         flash(f"Error: unsufficient points to book {ordered_spots} places")
     elif ordered_spots > available_spots:        
         flash(f"Error: there is only {available_spots} places available. You asked for {ordered_spots}")
