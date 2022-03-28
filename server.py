@@ -1,6 +1,7 @@
 import json
 from flask import Flask,render_template,request,redirect,flash,url_for
-
+from datetime import datetime
+from dateutil import parser
 
 def loadClubs():
     with open('clubs.json') as c:
@@ -58,7 +59,11 @@ def purchasePlaces():
         ordered_spots = 0
         
     available_spots = int(competition["numberOfPlaces"])
-    if ordered_spots >= 12:
+    date_now = datetime.now()
+    date_competiton = parser.parse(competition["date"])
+    if date_now > date_competiton:
+        flash("You cannot book a previous competition")
+    elif ordered_spots >= 12:
         flash(f"You can get max 12 points per booking")
     elif club_points < ordered_spots:
         flash(f"Error: unsufficient points to book {ordered_spots} places")
