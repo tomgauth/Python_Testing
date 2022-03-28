@@ -29,7 +29,7 @@ def index(error=None):
 def showSummary():
     try:
         club = [club for club in clubs if club['email'] == request.form['email']][0]    
-        return render_template('welcome.html',club=club,competitions=competitions)
+        return render_template('welcome.html',club=club, clubs=clubs, competitions=competitions)
     except IndexError:
         return index("Sorry, that email is not valid")
     
@@ -43,7 +43,7 @@ def book(competition,club):
         return render_template('booking.html',club=foundClub,competition=foundCompetition)
     else:
         flash("Something went wrong-please try again")
-        return render_template('welcome.html', club=club, competitions=competitions)
+        return render_template('welcome.html', club=club, clubs=clubs, competitions=competitions)
 
 
 @app.route('/purchasePlaces',methods=['POST'])
@@ -74,13 +74,9 @@ def purchasePlaces():
         club["points"] = club_points - ordered_spots
         flash("Great-booking complete!")
 
-    return render_template("welcome.html", club=club, competitions=competitions)
+    return render_template("welcome.html", club=club, clubs=clubs, competitions=competitions)
 
     
-    
-
-
-# TODO: Add route for points display
 
 
 @app.route('/logout')
